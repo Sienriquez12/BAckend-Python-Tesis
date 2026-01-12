@@ -29,7 +29,7 @@ class Recomendacion(BaseModel):
 class EstudianteInfo(BaseModel):
     id: int
     nombre: str
-    carrera: str
+    carrera: Optional[str] = None
     semestre: int
     intereses: List[str]
     grupo_cluster: int

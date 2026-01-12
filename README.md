@@ -1,21 +1,21 @@
-# 🤖 Club Match IA - Sistema de Recomendación Inteligente
+# Club Match IA - Sistema de Recomendación Inteligente
 
-## 📋 Descripción
+## Descripción
 
 Sistema de recomendación de clubes universitarios basado en **Inteligencia Artificial** que utiliza algoritmos de Machine Learning para asignar estudiantes a clubes según su perfil, intereses y habilidades.
 
-### 🎯 Características Principales
+### Características Principales
 
-- ✅ **Recomendaciones personalizadas** usando matriz de afinidad
-- ✅ **Clustering con K-Means** para análisis de contexto poblacional
-- ✅ **6 factores ponderados** de compatibilidad
-- ✅ **API REST con FastAPI** y documentación Swagger
-- ✅ **Base de datos PostgreSQL** en DigitalOcean
-- ✅ **Arquitectura por capas** (Repository-Service-Controller)
+- **Recomendaciones personalizadas** usando matriz de afinidad
+- **Clustering con K-Means** para análisis de contexto poblacional
+- **6 factores ponderados** de compatibilidad
+- **API REST con FastAPI** y documentación Swagger
+- **Base de datos PostgreSQL** en DigitalOcean
+- **Arquitectura por capas** (Repository-Service-Controller)
 
 ---
 
-## 🏗️ Arquitectura del Sistema
+## Arquitectura del Sistema
 
 ```
 📦 ClubMatch/IA
@@ -41,7 +41,7 @@ Sistema de recomendación de clubes universitarios basado en **Inteligencia Arti
 
 ---
 
-## 🔄 Flujo del Sistema de Recomendación
+## Flujo del Sistema de Recomendación
 
 ```
 ┌─────────────────────────┐
@@ -81,7 +81,7 @@ Sistema de recomendación de clubes universitarios basado en **Inteligencia Arti
 
 ---
 
-## 🧮 Algoritmo de Recomendación
+## Algoritmo de Recomendación
 
 ### **FASE 1: Obtención de Datos**
 Extrae información completa del estudiante y clubes desde PostgreSQL:
@@ -150,7 +150,7 @@ Ordena y filtra clubes:
 
 ---
 
-## 🚀 Instalación
+## Instalación
 
 ### **1. Requisitos Previos**
 ```bash
@@ -206,14 +206,14 @@ python db_config.py
 
 **Salida esperada:**
 ```
-✓ Pool de conexiones inicializado correctamente
-✓ Conectado a PostgreSQL: PostgreSQL 18.1 on x86_64-pc-linux-gnu
-✓ Todas las conexiones cerradas
+Pool de conexiones inicializado correctamente
+Conectado a PostgreSQL: PostgreSQL 18.1 on x86_64-pc-linux-gnu
+Todas las conexiones cerradas
 ```
 
 ---
 
-## 🎮 Uso
+## Uso
 
 ### **Ejecutar el Servidor**
 ```bash
@@ -223,25 +223,25 @@ python app.py
 **Salida esperada:**
 ```
 ==================================================
-🚀 Iniciando Club Match IA API
+Iniciando Club Match IA API
 ==================================================
-✓ Pool de conexiones inicializado
+Pool de conexiones inicializado
 ==================================================
-🔧 Configurando servidor...
+Configurando servidor...
 ==================================================
-📍 API en: http://localhost:8000
-📚 Documentación: http://localhost:8000/docs
+API en: http://localhost:8000
+Documentación: http://localhost:8000/docs
 ==================================================
 ```
 
 ### **Acceder a la Documentación**
 Abre en tu navegador:
-- 📚 **Swagger UI**: http://localhost:8000/docs
-- 📖 **ReDoc**: http://localhost:8000/redoc
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
 
 ---
 
-## 📡 Endpoints Disponibles
+## Endpoints Disponibles
 
 ### **1. Información General**
 ```http
@@ -275,7 +275,7 @@ GET /api/clubes/estadisticas/total
 
 ---
 
-### **3. Recomendaciones IA** ⭐
+### **3. Recomendaciones IA**
 
 #### Generar recomendación completa
 ```http
@@ -312,21 +312,36 @@ curl -X POST http://localhost:8000/api/recommendations/2
       "razones_match": [
         "Comparten intereses: Fútbol, Baloncesto, Atletismo",
         "Desarrollarás: Trabajo en equipo, Liderazgo",
-        "¡Match perfecto! (70%+ compatibilidad)"
+        "Match perfecto! (70%+ compatibilidad)"
       ]
     },
     {
-      "club_id": 4,
+      "club_id": 2,
+      "club_name": "Club de Natación",
+      "club_type": "Deportivo",
+      "afinidad": 0.621,
+      "afinidad_porcentaje": 62.1,
+      "capacidad_disponible": 75,
+      "horas_semanales": 4,
+      "descripcion": "Club enfocado en natación competitiva",
+      "razones_match": [
+        "Comparten intereses: Natación",
+        "Desarrollarás: Disciplina, Resistencia",
+        "Buena compatibilidad (60%+)"
+      ]
+    },
+    {
+      "club_id": 3,
       "club_name": "Club Literario Aurora",
       "club_type": "Cultural y artístico",
-      "afinidad": 0.456,
-      "afinidad_porcentaje": 45.6,
+      "afinidad": 0.356,
+      "afinidad_porcentaje": 35.6,
       "capacidad_disponible": 50,
       "horas_semanales": 2,
       "descripcion": "Club privado de lectura y café",
       "razones_match": [
         "Desarrollarás: Comunicación efectiva, Creatividad",
-        "Buena compatibilidad (50%+)"
+        "Compatibilidad moderada (30%+)"
       ]
     }
   ],
@@ -337,6 +352,16 @@ curl -X POST http://localhost:8000/api/recommendations/2
   }
 }
 ```
+
+**Nota:** Los porcentajes de afinidad se calculan **automáticamente** según:
+- Coincidencia de intereses (40%)
+- Soft skills compatibles (25%)
+- Compatibilidad de carrera (15%)
+- Razones/motivaciones (10%)
+- Semestre compatible (5%)
+- Disponibilidad horaria (5%)
+
+Los valores varían dinámicamente según los datos de cada estudiante y club.
 
 #### Vista rápida (solo nombres y scores)
 ```http
@@ -374,7 +399,7 @@ Verifica el estado de la API y la conexión a la base de datos.
 
 ---
 
-## 🗄️ Estructura de la Base de Datos
+## Estructura de la Base de Datos
 
 ### **Tablas Principales**
 
@@ -405,7 +430,7 @@ recommendation_log (student_id, club_id, affinity_score, rank_position)
 
 ---
 
-## 📊 Datos de Ejemplo
+## Datos de Ejemplo
 
 ### **Intereses Disponibles (30)**
 - **Deportivos**: Fútbol, Baloncesto, Voleibol, Atletismo, Natación
@@ -436,7 +461,7 @@ recommendation_log (student_id, club_id, affinity_score, rank_position)
 
 ---
 
-## 🧪 Pruebas
+## Pruebas
 
 ### **Test Manual con Swagger**
 1. Ir a http://localhost:8000/docs
@@ -472,16 +497,16 @@ print(f"Afinidad: {data['recomendaciones'][0]['afinidad_porcentaje']}%")
 
 ---
 
-## 📈 Rendimiento
+## Rendimiento
 
-- ⚡ Tiempo promedio de respuesta: **0.3 - 0.5 segundos**
-- 🔄 Procesamiento de clustering: **< 0.1s**
-- 🧮 Cálculo de matriz de afinidad: **< 0.2s**
-- 💾 Consultas a BD optimizadas con pool de conexiones
+- Tiempo promedio de respuesta: **0.3 - 0.5 segundos**
+- Procesamiento de clustering: **< 0.1s**
+- Cálculo de matriz de afinidad: **< 0.2s**
+- Consultas a BD optimizadas con pool de conexiones
 
 ---
 
-## 🔧 Configuración Avanzada
+## Configuración Avanzada
 
 ### **Ajustar Pesos de Afinidad**
 Editar `recommendation_service.py`:
@@ -506,7 +531,7 @@ return recomendaciones[:10]  # Cambiar a 15, 20, etc.
 
 ---
 
-## 🐛 Solución de Problemas
+## Solución de Problemas
 
 ### **Error: "No module named 'fastapi'"**
 ```bash
@@ -529,7 +554,7 @@ uvicorn.run("app:app", host="0.0.0.0", port=8001)  # Cambiar a 8001
 
 ---
 
-## 📚 Referencias
+## Referencias
 
 - **Algoritmo base**: `tesis.py` (investigación original)
 - **Estructura BD**: `data.sql`
@@ -539,7 +564,7 @@ uvicorn.run("app:app", host="0.0.0.0", port=8001)  # Cambiar a 8001
 
 ---
 
-## 👥 Autor
+## Autor
 
 **Proyecto de Tesis - Club Match**  
 Universidad de las Fuerzas Armadas ESPE  
@@ -547,13 +572,13 @@ Carrera: Ingeniería en Tecnologías de la Información
 
 ---
 
-## 📄 Licencia
+## Licencia
 
 Este proyecto es parte de una investigación académica.
 
 ---
 
-## 🎯 Roadmap Futuro
+## Roadmap Futuro
 
 - [ ] Agregar filtros por disponibilidad de días
 - [ ] Implementar algoritmo genético para optimización
@@ -565,8 +590,8 @@ Este proyecto es parte de una investigación académica.
 
 ---
 
-## 📞 Soporte
+## Soporte
 
 Para dudas o problemas, contactar al equipo de desarrollo.
 
-**¡Gracias por usar Club Match IA! 🚀**
+**¡Gracias por usar Club Match IA!**

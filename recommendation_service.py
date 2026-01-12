@@ -240,10 +240,7 @@ class RecommendationService:
         for i, club in enumerate(clubes):
             afinidad = matriz[i]
             
-            # Filtro mínimo de afinidad (20%)
-            if afinidad < 0.2:
-                continue
-            
+            # Sin filtro mínimo de afinidad (mostrar todos los clubes)
             # Filtro de capacidad (permitir hasta 110% de capacidad)
             if club['miembros_actuales'] >= club['capacity'] * 1.1:
                 continue
@@ -263,8 +260,8 @@ class RecommendationService:
         # Ordenar por afinidad descendente
         recomendaciones.sort(key=lambda x: x['afinidad'], reverse=True)
         
-        # Limitar a top 10
-        return recomendaciones[:10]
+        # Retornar todas las recomendaciones encontradas
+        return recomendaciones
     
     @staticmethod
     def _generar_explicacion(estudiante: Dict, club: Dict, afinidad: float) -> List[str]:
