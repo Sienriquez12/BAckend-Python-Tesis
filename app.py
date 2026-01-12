@@ -165,13 +165,13 @@ if __name__ == "__main__":
     print("\n" + "="*50)
     print("🔧 Configurando servidor...")
     print("="*50)
-    print("📍 API en: http://localhost:8000")
-    print("📚 Documentación: http://localhost:8000/docs")
+    print("📍 API en: http://localhost:8080")
+    print("📚 Documentación: http://localhost:8080/docs")
     print("="*50 + "\n")
     
     uvicorn.run(
         "app:app",
         host="0.0.0.0",
-        port=8000,
-        reload=True
+        port=8080,
+        reload=False
     )
