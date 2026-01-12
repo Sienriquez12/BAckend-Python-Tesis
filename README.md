@@ -161,7 +161,7 @@ Ordena y filtra clubes:
 
 ### **2. Clonar o Descargar el Proyecto**
 ```bash
-cd C:\Users\anyel\Documents\APP\ClubMatch\IA
+cd C:\Users\sienriquez1\Documents\APP\ClubMatch\IA
 ```
 
 ### **3. Crear Entorno Virtual**
