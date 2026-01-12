@@ -1,0 +1,13 @@
+# Librerías principales (sin versiones específicas para evitar problemas de compilación en Windows)
+pandas>=2.0.0
+numpy>=1.24.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+scikit-learn>=1.3.0
+
+# Base de datos
+psycopg2-binary>=2.9.0
+python-dotenv>=1.0.0
+
+# Utilidades adicionales
+sqlalchemy>=2.0.0
