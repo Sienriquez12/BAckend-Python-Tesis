@@ -171,12 +171,18 @@ class RecommendationService:
         FASE 2B: Cálculo de afinidad estudiante-club
         Similar a tesis.py líneas 101-140
         """
+        # Calculamos scores "crudos" por club
         matriz = np.zeros(len(clubes))
-        
+
         for j, club in enumerate(clubes):
             score = RecommendationService._calcular_afinidad_individual(estudiante, club)
             matriz[j] = score
-        
+
+        # Normalizar la matriz al rango 0.0 - 1.0 para que el mayor score valga 1.0 (100%)
+        max_val = float(np.max(matriz)) if matriz.size > 0 else 0.0
+        if max_val > 0:
+            matriz = matriz / max_val
+
         return matriz
     
     @staticmethod

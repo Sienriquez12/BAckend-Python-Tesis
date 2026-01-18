@@ -3,13 +3,32 @@ RECOMMENDATION CONTROLLER: Endpoints de Recomendación IA
 Responsabilidad: Exponer API para generar recomendaciones
 """
 
-from fastapi import APIRouter, HTTPException, Path
+from fastapi import APIRouter, HTTPException, Path, Header, Depends, status
+import os
+from dotenv import load_dotenv
+
+# Cargar variables de entorno desde .env (desarrollo)
+load_dotenv()
+
+
+def _verify_api_key(x_internal_ia: str = Header(None)) -> bool:
+    """Dependencia que verifica el header `x-internal-ia` contra la KEY en env."""
+    expected = os.getenv('INTERNAL_IA_API_KEY')
+    if not expected:
+        raise HTTPException(status_code=500, detail="API key no configurada en el servidor")
+    if not x_internal_ia or x_internal_ia != expected:
+        raise HTTPException(status_code=401, detail="Unauthorized: invalid API key")
+    return True
 from pydantic import BaseModel
 from typing import List, Optional
 from recommendation_service import RecommendationService
 
-# Router para endpoints de recomendaciones
-router = APIRouter(prefix="/api/recommendations", tags=["Recomendaciones IA"])
+# Router para endpoints de recomendaciones (protegido por API key)
+router = APIRouter(
+    prefix="/api/recommendations",
+    tags=["Recomendaciones IA"],
+    dependencies=[Depends(_verify_api_key)]
+)
 
 # ==========================================
 # MODELOS PYDANTIC
